@@ -2,13 +2,14 @@ var http = require('http');
 var util = require('util');
 var fs = require('fs');
 var url = require('url');
+var mongodb_url = "";
 var x="";
 var y="";
 var z="";
 var server = http.createServer(function (req,res){                            
     var u = url.parse(req.url,true);   
     if(u.pathname == '/')
-        fs.readFile('./try1.html',function(error,data)
+        fs.readFile('./try.html',function(error,data)
         { 
 		    res.end(data);    
 	    });
@@ -30,7 +31,7 @@ var server = http.createServer(function (req,res){
 	if(u.pathname == '/rating')
 	{
     	var mongoclient=require('mongodb').MongoClient;
-		var mongourl="mongodb+srv://keera_enn:M0lk!nda@keera-qcm-84dwl.mongodb.net/test?retryWrites=true";
+		var mongourl="mongodb+srv://"+mongodb_url;
 		mongoclient.connect(mongourl,{useNewUrlParser:true},function(err,db)
 		{
 			if (err) throw err;
@@ -51,7 +52,7 @@ var server = http.createServer(function (req,res){
 	if(u.pathname =='/view')
 	{
 		var mongoclient=require('mongodb').MongoClient;
-		var mongourl="mongodb+srv://keera_enn:M0lk!nda@keera-qcm-84dwl.mongodb.net/test?retryWrites=true";
+		var mongourl="mongodb+srv://"+ mongodb_url;
 		mongoclient.connect(mongourl,{useNewUrlParser:true},function(err,db)
 		{
 			if (err) throw err;
@@ -73,7 +74,7 @@ var server = http.createServer(function (req,res){
 	}		 
 });
 server.listen(3000);
-console.log('Server listenning at http://ec2-54-70-94-134.us-west-2.compute.amazonaws.com:3000'); 
+console.log('Server listenning at <cloud instance>:3000'); 
 
 /*
 var a=0,b=0,c=0,d=0;
